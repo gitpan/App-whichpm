@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.61.
+signed via the Module::Signature module, version 0.63.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,24 +15,25 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 6ae5dd6fd0c50bdb691b3748aad245606835f60f Build.PL
-SHA1 678cae5f83841351e7b0c1dab9a15ef780ba4988 Changes
-SHA1 cc2f751b86b091a68ae9803c433a69716b38f4fe MANIFEST
-SHA1 ed008581390bfa770c5f9d049a6d37c8aaacfaad META.yml
-SHA1 a7763018237df6aa04579004eb497e5936cfc3c7 README
-SHA1 95eb5a85bed0bb5a06e6f2dda9a6a1af470128a0 lib/App/whichpm.pm
+SHA1 ecb25dbe70a458511a5b99c9f119ac5a12cc83d8 Changes
+SHA1 9aa2b37f48699915f5841d6f31b74e71b0b58604 MANIFEST
+SHA1 03ff532539ea6c054577e53aff4eb1b2687e8e5d META.yml
+SHA1 cfae24fdf62b059e7b346a8bf55810fe3e910490 README
+SHA1 28d515808f450ec9405525883c55e73c68840520 lib/App/whichpm.pm
 SHA1 052fc56aca2c2e585ad3fd9dc49d66e5cf747814 script/whichpm
-SHA1 553fd6f88992d4a57992ad0a111acd73ea80e198 t/01_App-whichpm.t
+SHA1 a894e85dad2e0cb13ee26919c26f255931ce9435 t/01_App-whichpm.t
 SHA1 41533fbd463e42d2ecf1e119eca910c16809d13e t/distribution.t
 SHA1 10c564e5ffe84748070827b350edbf3d6b832b20 t/fixme.t
 SHA1 209ca159a62ed05e5c827fa29a196403ff32b3a6 t/lib/Acme/empty.pm
+SHA1 de45ca28d44ffc8aa009349df5cb4e02d1e3c513 t/lib/Acme/justDie.pm
 SHA1 2f3eaee1efed521f2de755a4b5896427aef29223 t/lib/Acme/nonEmpty.pm
 SHA1 0b1c5a2d59be6bfa7d60c64cd964fea6a0331705 t/pod-coverage.t
-SHA1 4af641cdc7b41675aa47a429e93676a13e2864a2 t/pod-spell.t
+SHA1 18b428f6c40288841e7724da41195f8080a40197 t/pod-spell.t
 SHA1 640935336dc1123c0069bcf5432bcaedc2cf22d3 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iEYEARECAAYFAkuRPLMACgkQC0OgUPgL2SdBggCeIMFNr1bhQU+3okWaRTeP3qBP
-wg0AoLVM147KTWz6hcH+ewCill5AX4gw
-=DNUr
+iEYEARECAAYFAkwaY14ACgkQC0OgUPgL2SeJzACfeEbsYqFg0NPCzQqcfNDq8FTo
+Sl0An2+CtHEgVbjFRztVyhHBcgyM3PVl
+=tbIO
 -----END PGP SIGNATURE-----

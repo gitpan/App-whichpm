@@ -24,9 +24,11 @@ Loads a given module and reports it's location and version.
 use warnings;
 use strict;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
-use Exporter 'import';
+use File::Spec;
+
+use base 'Exporter';
 our @EXPORT_OK = qw(
     which_pm
 );
@@ -47,7 +49,7 @@ same as L</find> only exported under C<which_pm> name.
 
 Loads the C<$module_name>.
 
-In scalar context returns filename coresponding to C<$module_name>.
+In scalar context returns filename corresponding to C<$module_name>.
 In array context returns filename and version.
 
 C<$module_name> can be either C<Some::Module::Name> or C<Some/Module/Name.pm>
@@ -59,18 +61,25 @@ sub find {
 	my $module_filename;
 	
 	if ($module_name =~ m/\.pm$/xms) {
-		$module_filename = $module_name;
-		$module_name     =~ s{/}{::};
 		$module_name     = substr($module_name, 0, -3);
+		$module_name     =~ s{[/\\]}{::}g;
 	}
-	else {
-		$module_filename = $module_name.'.pm';
-		$module_filename =~ s{::}{/}xmsg;
-	}
+
+	$module_filename = $module_name.'.pm';
+	$module_filename = File::Spec->catfile(split('::', $module_filename));
 	
 	eval "use $module_name;";
 	my $filename = $INC{$module_filename};
-	return if not $filename;
+	
+	# if the filename is not in %INC then try to search the @INC folders
+	if (not $filename) {
+		foreach my $inc_path (@INC) {
+			my $module_full_filename = File::Spec->catfile($inc_path, $module_filename);
+			return $module_full_filename
+				if -f $module_full_filename;
+		}
+		return;
+	}
 	
 	if (wantarray) {
 		my $version  = eval { $module_name->VERSION };

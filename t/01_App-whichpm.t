@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 12;
+use Test::More tests => 14;
 
 use File::Spec;
 use FindBin qw($Bin);
@@ -19,6 +19,7 @@ exit main();
 sub main {
 	my $acme_empty_filename     = File::Spec->catfile($Bin, 'lib', 'Acme', 'empty.pm');
 	my $acme_non_empty_filename = File::Spec->catfile($Bin, 'lib', 'Acme', 'nonEmpty.pm');
+	my $acme_just_die_filename  = File::Spec->catfile($Bin, 'lib', 'Acme', 'justDie.pm');
 	is(App::whichpm::find('Acme::empty'), $acme_empty_filename, 'Acme::empty');
 	is_deeply(
 		[ App::whichpm::find('Acme::empty') ],
@@ -36,9 +37,14 @@ sub main {
 		[ $acme_non_empty_filename, '0.01' ],
 		'which_pm export (wantarray)'
 	);
+	is_deeply(
+		[ App::whichpm::find('Acme::justDie') ],
+		[ $acme_just_die_filename ], 'Acme::justDie (wantarray)'
+	);
 
 	# pass filename
 	is(App::whichpm::find('Acme/nonEmpty.pm'), $acme_non_empty_filename, 'nonEmpty');
+	is(App::whichpm::find('Acme\nonEmpty.pm'), $acme_non_empty_filename, 'nonEmpty (windows path)');
 	
 	# execute script
 	my $whichpm_script = File::Spec->catfile($Bin, '..', 'script', 'whichpm');

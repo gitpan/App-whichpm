@@ -6,7 +6,7 @@ build_requires:
   Test::More: 0
 configure_requires:
   Module::Build: 0.36
-generated_by: 'Module::Build version 0.3603'
+generated_by: 'Module::Build version 0.3607'
 keywords:
   - app
   - which
@@ -20,11 +20,11 @@ name: App-whichpm
 provides:
   App::whichpm:
     file: lib/App/whichpm.pm
-    version: 0.01
+    version: 0.02
 requires:
   File::Spec: 0
 resources:
   bugtracker: http://github.com/jozef/App-whichpm/issues
   license: http://dev.perl.org/licenses/
   repository: http://github.com/jozef/App-whichpm/
-version: 0.01
+version: 0.02
