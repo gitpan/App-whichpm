@@ -6,11 +6,29 @@ whichpm - locate a Perl module and it's version
 
 =head1 SYNOPSIS
 
+	# shows path and version (if vailable) of the Perl module
 	whichpm Some::Module::Name
+	whichpm -v Some::Module::Name
+	whichpm --verbose Some::Module::Name
+	
+	# shows just path to the Perl module
+	whichpm -q Some::Module::Name
+	whichpm --quiet Some::Module::Name
+	
+	# show version of App::whichpm
+	whichpm -V
+	whichpm --version
+	
+	# show/edit .pm file
+	less `whichpm Some::Module::Name`
+	vim `whichpm Some::Module::Name`
 
 =head1 DESCRIPTION
 
 Loads the module, prints its file system location and version.
+
+When STDOUT is not a TTY, prints just file name by default. (-v can force
+printing version too)
 
 =cut
 
@@ -19,19 +37,44 @@ use strict;
 use warnings;
 
 use App::whichpm 'which_pm';
+use Getopt::Long;
+use Pod::Usage;
 
 exit main();
 
 sub main {
 	my $help;
+	my $quiet = (-t STDOUT ? 0 : 1);
+	my $version;
+	my $verbose;
+	GetOptions(
+		'help|h'    => \$help,
+		'quiet|q'   => \$quiet,
+		'version|V' => \$version,
+		'verbose|v' => \$verbose,
+	) or pod2usage;
+	pod2usage if $help;
+	
+	$quiet = 0 if $verbose;
+	
+	# show version
+	if ($version) {
+		print App::whichpm->VERSION, "\n";
+		return 0;
+	}
 
 	print STDERR "usage: $0 Some::Module::Name\n"
 		if not @ARGV;
-
+	
 	# lookup for all modules passed on command line
 	while (my $mn = shift @ARGV) {
 		my ($filename, $version) = which_pm($mn);
-		print $filename, ($version ? ' '.$version : ()), "\n"
+		
+		# don't show version in quiet mode
+		$version = undef
+			if $quiet;
+
+		print $filename, (defined $version ? ' '.$version : ()), "\n"
 			if $filename;
 	}
 
